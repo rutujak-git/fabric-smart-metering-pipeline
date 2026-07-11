@@ -1,0 +1,91 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "Get Metadata of meter readings folder",
+        "type": "GetMetadata",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "fieldList": [
+            "childItems"
+          ],
+          "datasetSettings": {
+            "annotations": [],
+            "type": "DelimitedText",
+            "typeProperties": {
+              "location": {
+                "type": "AzureBlobFSLocation",
+                "folderPath": "meter-readings",
+                "fileSystem": "landing"
+              },
+              "columnDelimiter": ",",
+              "escapeChar": "\\",
+              "firstRowAsHeader": true,
+              "quoteChar": "\""
+            },
+            "schema": [],
+            "externalReferences": {
+              "connection": "45257c62-9a1f-4b80-ad8a-8de87fb33451"
+            }
+          },
+          "storeSettings": {
+            "type": "AzureBlobFSReadSettings",
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {
+            "type": "DelimitedTextReadSettings"
+          }
+        }
+      },
+      {
+        "name": "Reading each file",
+        "type": "ForEach",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [
+          {
+            "activity": "Get Metadata of meter readings folder",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "items": {
+            "value": "@activity('Get Metadata of meter readings folder').output.childItems",
+            "type": "Expression"
+          },
+          "isSequential": true,
+          "activities": [
+            {
+              "name": "copy_data_from_adls_to_lh",
+              "type": "Copy",
+              "state": "Inactive",
+              "onInactiveMarkAs": "Succeeded",
+              "dependsOn": [],
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": false
+              },
+              "typeProperties": {
+                "enableStaging": false
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

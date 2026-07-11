@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "MirroredDatabase",
+    "displayName": "mirror_smartmetering_sql"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "d5963790-42ae-b7dc-4114-3b591d3e2c9b"
+  }
+}
