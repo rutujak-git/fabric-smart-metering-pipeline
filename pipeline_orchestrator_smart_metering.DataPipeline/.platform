@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "pipeline_orchestrator_smart_metering"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "f4afd8ab-a4db-8c0b-43ab-d5595b17e88a"
+  }
+}

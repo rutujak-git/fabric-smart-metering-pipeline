@@ -2,53 +2,340 @@
   "properties": {
     "activities": [
       {
-        "name": "Get Metadata of meter readings folder",
         "type": "GetMetadata",
-        "state": "Inactive",
-        "onInactiveMarkAs": "Succeeded",
-        "dependsOn": [],
-        "policy": {
-          "timeout": "0.12:00:00",
-          "retry": 0,
-          "retryIntervalInSeconds": 30,
-          "secureOutput": false,
-          "secureInput": false
-        },
         "typeProperties": {
-          "fieldList": [
-            "childItems"
-          ],
           "datasetSettings": {
-            "annotations": [],
             "type": "DelimitedText",
             "typeProperties": {
               "location": {
                 "type": "AzureBlobFSLocation",
-                "folderPath": "meter-readings",
-                "fileSystem": "landing"
+                "fileSystem": "landing",
+                "folderPath": "meter-readings"
               },
               "columnDelimiter": ",",
+              "quoteChar": "\"",
               "escapeChar": "\\",
-              "firstRowAsHeader": true,
-              "quoteChar": "\""
+              "firstRowAsHeader": true
             },
             "schema": [],
             "externalReferences": {
               "connection": "45257c62-9a1f-4b80-ad8a-8de87fb33451"
-            }
+            },
+            "annotations": []
           },
+          "fieldList": [
+            "childItems"
+          ],
           "storeSettings": {
             "type": "AzureBlobFSReadSettings",
+            "recursive": true,
             "enablePartitionDiscovery": false
           },
           "formatSettings": {
             "type": "DelimitedTextReadSettings"
           }
-        }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Get Metadata of meter readings folder",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": []
       },
       {
-        "name": "Reading each file",
         "type": "ForEach",
+        "typeProperties": {
+          "isSequential": true,
+          "items": {
+            "value": "@activity('Get Metadata of meter readings folder').output.childItems",
+            "type": "Expression"
+          },
+          "activities": [
+            {
+              "type": "IfCondition",
+              "typeProperties": {
+                "expression": {
+                  "value": "@equals(item().type,'File')",
+                  "type": "Expression"
+                },
+                "ifTrueActivities": [
+                  {
+                    "type": "Copy",
+                    "typeProperties": {
+                      "source": {
+                        "type": "DelimitedTextSource",
+                        "formatSettings": {
+                          "type": "DelimitedTextReadSettings"
+                        },
+                        "storeSettings": {
+                          "type": "AzureBlobFSReadSettings",
+                          "recursive": true,
+                          "enablePartitionDiscovery": false
+                        },
+                        "datasetSettings": {
+                          "type": "DelimitedText",
+                          "typeProperties": {
+                            "location": {
+                              "type": "AzureBlobFSLocation",
+                              "fileSystem": "landing",
+                              "folderPath": "meter-readings",
+                              "fileName": {
+                                "value": "@item().name",
+                                "type": "Expression"
+                              }
+                            },
+                            "columnDelimiter": ",",
+                            "quoteChar": "\"",
+                            "escapeChar": "\\",
+                            "firstRowAsHeader": true
+                          },
+                          "schema": [],
+                          "externalReferences": {
+                            "connection": "45257c62-9a1f-4b80-ad8a-8de87fb33451"
+                          },
+                          "annotations": []
+                        }
+                      },
+                      "sink": {
+                        "type": "DelimitedTextSink",
+                        "formatSettings": {
+                          "type": "DelimitedTextWriteSettings",
+                          "fileExtension": ".txt"
+                        },
+                        "storeSettings": {
+                          "type": "LakehouseWriteSettings"
+                        },
+                        "datasetSettings": {
+                          "type": "DelimitedText",
+                          "typeProperties": {
+                            "location": {
+                              "type": "LakehouseLocation",
+                              "folderPath": "bronze/meter-readings/",
+                              "fileName": {
+                                "value": "@item().name",
+                                "type": "Expression"
+                              }
+                            },
+                            "columnDelimiter": ",",
+                            "quoteChar": "\"",
+                            "escapeChar": "\\",
+                            "firstRowAsHeader": true
+                          },
+                          "schema": [],
+                          "connectionSettings": {
+                            "name": "lh_smartmetering",
+                            "properties": {
+                              "type": "Lakehouse",
+                              "typeProperties": {
+                                "artifactId": "94a00be1-8ba8-46ec-9271-6db7014aed81",
+                                "workspaceId": "c50a881a-f4eb-402e-a192-efe134697892",
+                                "rootFolder": "Files"
+                              },
+                              "externalReferences": {
+                                "connection": "40b603e0-25c5-43fd-ac5b-cbaea3977698"
+                              },
+                              "annotations": []
+                            }
+                          },
+                          "annotations": []
+                        }
+                      },
+                      "translator": {
+                        "type": "TabularTranslator",
+                        "typeConversion": true,
+                        "typeConversionSettings": {
+                          "allowDataTruncation": true,
+                          "treatBooleanAsNumber": false
+                        }
+                      },
+                      "enableStaging": false,
+                      "validateDataConsistency": false
+                    },
+                    "policy": {
+                      "timeout": "0.12:00:00",
+                      "retry": 0,
+                      "retryIntervalInSeconds": 30,
+                      "secureInput": false,
+                      "secureOutput": false
+                    },
+                    "name": "copy_data_from_adls_to_lh",
+                    "dependsOn": []
+                  },
+                  {
+                    "type": "Copy",
+                    "typeProperties": {
+                      "source": {
+                        "type": "DelimitedTextSource",
+                        "formatSettings": {
+                          "type": "DelimitedTextReadSettings"
+                        },
+                        "storeSettings": {
+                          "type": "AzureBlobFSReadSettings",
+                          "recursive": true,
+                          "enablePartitionDiscovery": false
+                        },
+                        "datasetSettings": {
+                          "type": "DelimitedText",
+                          "typeProperties": {
+                            "location": {
+                              "type": "AzureBlobFSLocation",
+                              "fileSystem": "landing",
+                              "folderPath": "meter-readings",
+                              "fileName": {
+                                "value": "@item().name",
+                                "type": "Expression"
+                              }
+                            },
+                            "columnDelimiter": ",",
+                            "quoteChar": "\"",
+                            "escapeChar": "\\",
+                            "firstRowAsHeader": true
+                          },
+                          "schema": [],
+                          "externalReferences": {
+                            "connection": "45257c62-9a1f-4b80-ad8a-8de87fb33451"
+                          },
+                          "annotations": []
+                        }
+                      },
+                      "sink": {
+                        "type": "DelimitedTextSink",
+                        "formatSettings": {
+                          "type": "DelimitedTextWriteSettings",
+                          "fileExtension": ".txt"
+                        },
+                        "storeSettings": {
+                          "type": "AzureBlobFSWriteSettings"
+                        },
+                        "datasetSettings": {
+                          "type": "DelimitedText",
+                          "typeProperties": {
+                            "location": {
+                              "type": "AzureBlobFSLocation",
+                              "fileSystem": "landing",
+                              "folderPath": "processed_files",
+                              "fileName": {
+                                "value": "@item().name",
+                                "type": "Expression"
+                              }
+                            },
+                            "columnDelimiter": ",",
+                            "quoteChar": "\"",
+                            "escapeChar": "\\",
+                            "firstRowAsHeader": true
+                          },
+                          "schema": [],
+                          "externalReferences": {
+                            "connection": "45257c62-9a1f-4b80-ad8a-8de87fb33451"
+                          },
+                          "annotations": []
+                        }
+                      },
+                      "translator": {
+                        "type": "TabularTranslator",
+                        "typeConversion": true,
+                        "typeConversionSettings": {
+                          "allowDataTruncation": true,
+                          "treatBooleanAsNumber": false
+                        }
+                      },
+                      "enableStaging": false
+                    },
+                    "policy": {
+                      "timeout": "0.12:00:00",
+                      "retry": 0,
+                      "retryIntervalInSeconds": 30,
+                      "secureInput": false,
+                      "secureOutput": false
+                    },
+                    "name": "copy_file_to_processed",
+                    "dependsOn": [
+                      {
+                        "activity": "copy_data_from_adls_to_lh",
+                        "dependencyConditions": [
+                          "Succeeded"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delete",
+                    "typeProperties": {
+                      "enableLogging": true,
+                      "logStorageSettings": {
+                        "externalReferences": {
+                          "connection": "45257c62-9a1f-4b80-ad8a-8de87fb33451"
+                        },
+                        "path": "landing/logs/delete-activity"
+                      },
+                      "datasetSettings": {
+                        "type": "Binary",
+                        "typeProperties": {
+                          "location": {
+                            "type": "AzureBlobFSLocation",
+                            "fileSystem": "landing",
+                            "folderPath": "meter-readings",
+                            "fileName": {
+                              "value": "@item().name",
+                              "type": "Expression"
+                            }
+                          }
+                        },
+                        "externalReferences": {
+                          "connection": "45257c62-9a1f-4b80-ad8a-8de87fb33451"
+                        },
+                        "annotations": []
+                      },
+                      "storeSettings": {
+                        "type": "AzureBlobFSReadSettings",
+                        "recursive": true,
+                        "enablePartitionDiscovery": false
+                      }
+                    },
+                    "policy": {
+                      "timeout": "0.12:00:00",
+                      "retry": 0,
+                      "retryIntervalInSeconds": 30,
+                      "secureInput": false,
+                      "secureOutput": false
+                    },
+                    "name": "delete_processed_files_from_source_folder",
+                    "dependsOn": [
+                      {
+                        "activity": "copy_file_to_processed",
+                        "dependencyConditions": [
+                          "Succeeded"
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "ifFalseActivities": [
+                  {
+                    "type": "AppendVariable",
+                    "typeProperties": {
+                      "variableName": "skippedItems",
+                      "value": {
+                        "value": "@item().name",
+                        "type": "Expression"
+                      }
+                    },
+                    "name": "store_skipped_items",
+                    "dependsOn": []
+                  }
+                ]
+              },
+              "name": "process_new_files_only",
+              "dependsOn": []
+            }
+          ]
+        },
+        "name": "Reading each file",
         "state": "Inactive",
         "onInactiveMarkAs": "Succeeded",
         "dependsOn": [
@@ -58,34 +345,65 @@
               "Succeeded"
             ]
           }
-        ],
+        ]
+      },
+      {
+        "type": "WebActivity",
         "typeProperties": {
-          "items": {
-            "value": "@activity('Get Metadata of meter readings folder').output.childItems",
-            "type": "Expression"
-          },
-          "isSequential": true,
-          "activities": [
-            {
-              "name": "copy_data_from_adls_to_lh",
-              "type": "Copy",
-              "state": "Inactive",
-              "onInactiveMarkAs": "Succeeded",
-              "dependsOn": [],
-              "policy": {
-                "timeout": "0.12:00:00",
-                "retry": 0,
-                "retryIntervalInSeconds": 30,
-                "secureOutput": false,
-                "secureInput": false
+          "method": "GET",
+          "relativeUrl": "/v1/forecast?latitude=43.65&longitude=-79.38&current=temperature_2m,weather_code",
+          "headers": {}
+        },
+        "externalReferences": {
+          "connection": "cedab781-db8d-4f4a-a869-d16057adc660"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "fetch_weather_toronto",
+        "dependsOn": []
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "3799fb74-1071-81a6-405f-75f14a898e2c",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "weather_json": {
+              "value": {
+                "value": "@string(activity('fetch_weather_toronto').output)",
+                "type": "Expression"
               },
-              "typeProperties": {
-                "enableStaging": false
-              }
+              "type": "string"
             }
-          ]
-        }
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "process_weather_data",
+        "dependsOn": [
+          {
+            "activity": "fetch_weather_toronto",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
       }
-    ]
+    ],
+    "variables": {
+      "skippedItems": {
+        "type": "Array"
+      }
+    }
   }
 }
