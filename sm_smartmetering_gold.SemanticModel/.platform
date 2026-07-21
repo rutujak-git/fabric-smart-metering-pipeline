@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "sm_smartmetering_gold"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "063f590b-4f79-8969-4f76-7aad3f186f2d"
+  }
+}

@@ -1,0 +1,49 @@
+table smartmetering_measures
+	lineageTag: c6d5121d-f099-4280-a453-61afc0b81667
+
+	measure total_consumption_kwh = SUM(FactMeterReadings[consumption_kwh])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 988adfee-c87d-44cf-9c8f-72f20309f43f
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure avg_consumption_kwh = AVERAGE(FactMeterReadings[consumption_kwh])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: af0ec547-e984-40ed-95e0-161ceb2fdbb7
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure reading_count = COUNTROWS(FactMeterReadings)
+		formatString: 0
+		lineageTag: 792e92ab-d684-47b0-987e-3c07d2aa0748
+
+	measure total_revenue =
+			SUMX(
+			    FactMeterReadings,
+			    FactMeterReadings[consumption_kwh]*RELATED(DimTariffZone[rate_per_kwh])
+			)
+		lineageTag: 935eab88-21c9-4ad0-a3c4-d27793b346c4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure avg_temperature = AVERAGE(DimWeather[temperature_2m])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: c0ae31e3-7265-4ad6-8b9c-836654ceefc5
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column column1
+		isHidden
+		lineageTag: 00147acf-bf5c-4f72-a5c5-2c8b2d415811
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [column1]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition smartmetering_measures = calculated
+		mode: import
+		source = DATATABLE("column1",STRING,{{"Measures"}})
+
+	annotation PBI_Id = ee95a6495b5344698413b1812aa667ac
+

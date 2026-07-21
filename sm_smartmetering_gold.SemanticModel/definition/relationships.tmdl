@@ -1,0 +1,25 @@
+relationship 97e12a29-bbe1-8b02-cdf0-7a0a71e39743
+	relyOnReferentialIntegrity
+	fromColumn: FactMeterReadings.customer_key
+	toColumn: DimCustomer.customer_key
+
+relationship d69e0e46-c9ed-eb7a-2738-602cabd8a55a
+	relyOnReferentialIntegrity
+	fromColumn: FactMeterReadings.meter_key
+	toColumn: DimMeter.meter_key
+
+relationship 051732c4-5b0b-ed96-8e4c-2193f75ca559
+	relyOnReferentialIntegrity
+	fromColumn: FactMeterReadings.tariff_zone_key
+	toColumn: DimTariffZone.tariff_zone_key
+
+relationship d5310f51-1d1b-db9d-04a7-62c89a10fb5d
+	relyOnReferentialIntegrity
+	fromColumn: FactMeterReadings.weather_key
+	toColumn: DimWeather.weather_key
+
+relationship 6fd2c9d5-815d-ad9f-30a3-b4cc67ee0977
+	relyOnReferentialIntegrity
+	fromColumn: FactMeterReadings.date_key
+	toColumn: DimDate.date_key
+

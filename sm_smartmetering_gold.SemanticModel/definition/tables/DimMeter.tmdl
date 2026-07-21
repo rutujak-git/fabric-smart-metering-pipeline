@@ -1,0 +1,85 @@
+table DimMeter
+	lineageTag: 2e20fd89-abf3-495e-8aa0-915a659a45f8
+	sourceLineageTag: [gold].[DimMeter]
+
+	column meter_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 4d92f33d-9c58-4e9c-b172-9d245bc735c3
+		sourceLineageTag: meter_key
+		summarizeBy: none
+		sourceColumn: meter_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column meter_id
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: 4e179224-44a7-434a-8605-5a134a72fef1
+		sourceLineageTag: meter_id
+		summarizeBy: none
+		sourceColumn: meter_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: 0002fd65-2931-4eab-884e-403c30ee3e2e
+		sourceLineageTag: customer_id
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column install_date
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 7013d4d2-590c-4f31-99d6-380c43fade8a
+		sourceLineageTag: install_date
+		summarizeBy: none
+		sourceColumn: install_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column meter_type
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: a0d5eea2-c958-477c-9d87-81b56ad07e8f
+		sourceLineageTag: meter_type
+		summarizeBy: none
+		sourceColumn: meter_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: 2b14deb2-5f51-4653-a257-4ba791d7fc63
+		sourceLineageTag: region
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_quality_flag
+		dataType: string
+		sourceProviderType: varchar(100)
+		lineageTag: 805cc6db-3b17-47bc-9e94-2adf6e1d3b1d
+		sourceLineageTag: data_quality_flag
+		summarizeBy: none
+		sourceColumn: data_quality_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimMeter = entity
+		mode: directLake
+		source
+			entityName: DimMeter
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

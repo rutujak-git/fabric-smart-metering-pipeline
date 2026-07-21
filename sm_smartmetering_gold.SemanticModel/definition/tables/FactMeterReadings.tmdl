@@ -1,0 +1,113 @@
+table FactMeterReadings
+	lineageTag: 2a5b7320-74fa-4b3a-8ecc-a7dd5b35f46d
+	sourceLineageTag: [gold].[FactMeterReadings]
+
+	column fact_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 0b1cb3d9-f7bf-4ddf-ad75-0e9c69962fd1
+		sourceLineageTag: fact_key
+		summarizeBy: sum
+		sourceColumn: fact_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column meter_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 1fba010b-d3d3-48fb-8b3a-e9e8138ab91c
+		sourceLineageTag: meter_key
+		summarizeBy: none
+		sourceColumn: meter_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: f4423dbc-3eb2-4d7a-841a-8eb39fcfeacc
+		sourceLineageTag: customer_key
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column tariff_zone_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 39d959d7-5550-417d-aa51-9645efa8af32
+		sourceLineageTag: tariff_zone_key
+		summarizeBy: none
+		sourceColumn: tariff_zone_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 6939796f-8aec-475e-b5d7-4a131b945267
+		sourceLineageTag: date_key
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column weather_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 2020d8f7-8daf-49fc-900b-f1be370b73fc
+		sourceLineageTag: weather_key
+		summarizeBy: none
+		sourceColumn: weather_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column consumption_kwh
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: decimal(10, 2)
+		lineageTag: 0f916aa8-0321-42f4-bf6d-64c89d52f68f
+		sourceLineageTag: consumption_kwh
+		summarizeBy: sum
+		sourceColumn: consumption_kwh
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column data_quality_flag
+		dataType: string
+		sourceProviderType: varchar(100)
+		lineageTag: c8e3efac-cf54-4e86-b1d5-891a0a72f9e4
+		sourceLineageTag: data_quality_flag
+		summarizeBy: none
+		sourceColumn: data_quality_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column reading_datetime
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: d568ef60-1921-4323-8b44-8b56d4100de0
+		sourceLineageTag: reading_datetime
+		summarizeBy: none
+		sourceColumn: reading_datetime
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactMeterReadings = entity
+		mode: directLake
+		source
+			entityName: FactMeterReadings
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

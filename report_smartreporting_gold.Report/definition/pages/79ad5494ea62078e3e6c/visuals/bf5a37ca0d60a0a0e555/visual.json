@@ -1,0 +1,74 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "bf5a37ca0d60a0a0e555",
+  "position": {
+    "x": 195.23292700600632,
+    "y": 38.255100561987724,
+    "z": 1,
+    "height": 185.99893721518171,
+    "width": 245.36030015619716,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "smartmetering_measures"
+                    }
+                  },
+                  "Property": "total_consumption_kwh"
+                }
+              },
+              "queryRef": "smartmetering_measures.total_consumption_kwh",
+              "nativeQueryRef": "total_consumption_kwh"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "smartmetering_measures"
+                  }
+                },
+                "Property": "total_consumption_kwh"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "3a482e81b9aa3840e6c4",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "smartmetering_measures"
+              }
+            },
+            "Property": "total_consumption_kwh"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}
