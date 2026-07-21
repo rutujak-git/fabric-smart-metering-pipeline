@@ -1,19 +1,38 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "bf5a37ca0d60a0a0e555",
+  "name": "82df9aeb8e412797a3e3",
   "position": {
-    "x": 195.23113318868516,
-    "y": 98.349342200608646,
-    "z": 1,
-    "height": 185.99893721518171,
-    "width": 245.36030015619716,
-    "tabOrder": 1
+    "x": 0,
+    "y": 273.06226952867104,
+    "z": 3,
+    "height": 447.18893415564963,
+    "width": 664.847264939373,
+    "tabOrder": 3
   },
   "visual": {
-    "visualType": "cardVisual",
+    "visualType": "clusteredColumnChart",
     "query": {
       "queryState": {
-        "Data": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimCustomer"
+                    }
+                  },
+                  "Property": "region"
+                }
+              },
+              "queryRef": "DimCustomer.region",
+              "nativeQueryRef": "region",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
           "projections": [
             {
               "field": {
@@ -51,12 +70,27 @@
         "isDefaultSort": true
       }
     },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "drillFilterOtherVisuals": true
   },
   "filterConfig": {
     "filters": [
       {
-        "name": "3a482e81b9aa3840e6c4",
+        "name": "880da47a27ec434bdec0",
         "field": {
           "Measure": {
             "Expression": {
@@ -68,6 +102,20 @@
           }
         },
         "type": "Advanced"
+      },
+      {
+        "name": "74ae894050eb5309629b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimCustomer"
+              }
+            },
+            "Property": "region"
+          }
+        },
+        "type": "Categorical"
       }
     ]
   }

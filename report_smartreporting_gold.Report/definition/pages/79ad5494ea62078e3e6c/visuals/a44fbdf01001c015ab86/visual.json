@@ -1,0 +1,267 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "a44fbdf01001c015ab86",
+  "position": {
+    "x": 664.847264939373,
+    "y": 77.829342522664689,
+    "z": 4,
+    "height": 195.23292700600632,
+    "width": 614.71989178918216,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimTariffZone"
+                    }
+                  },
+                  "Property": "zone_name"
+                }
+              },
+              "queryRef": "DimTariffZone.zone_name",
+              "nativeQueryRef": "zone_name"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "smartmetering_measures"
+                    }
+                  },
+                  "Property": "total_consumption_kwh"
+                }
+              },
+              "queryRef": "smartmetering_measures.total_consumption_kwh",
+              "nativeQueryRef": "total_consumption_kwh"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "smartmetering_measures"
+                    }
+                  },
+                  "Property": "total_revenue"
+                }
+              },
+              "queryRef": "smartmetering_measures.total_revenue",
+              "nativeQueryRef": "total_revenue"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimTariffZone"
+                    }
+                  },
+                  "Property": "rate_per_kwh"
+                }
+              },
+              "queryRef": "DimTariffZone.rate_per_kwh",
+              "nativeQueryRef": "rate_per_kwh"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "grid": [
+        {
+          "properties": {
+            "gridHorizontalColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 1,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "gridVertical": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "gridVerticalColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 1,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "outlineStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "15D"
+                }
+              }
+            },
+            "outlineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 1,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "stylePreset": [
+        {
+          "properties": {
+            "name": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Default'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Tariff Zone Breakdown'"
+                }
+              }
+            },
+            "heading": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Heading2'"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Calibri'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "20D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "001778c7615020cb7e3a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimTariffZone"
+              }
+            },
+            "Property": "zone_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "47325297d6a659abd2ed",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "smartmetering_measures"
+              }
+            },
+            "Property": "total_consumption_kwh"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "7da8ed926de269656104",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "smartmetering_measures"
+              }
+            },
+            "Property": "total_revenue"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "e5f57a1e7d70cba78203",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimTariffZone"
+              }
+            },
+            "Property": "rate_per_kwh"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}
