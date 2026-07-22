@@ -1,0 +1,54 @@
+table DimCustomer
+	lineageTag: aae1b52d-93fe-4d43-b0b1-d3dc9ea2bb50
+	sourceLineageTag: [gold].[DimCustomer]
+
+	column customer_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: c3ab7818-e22b-4ed5-9a0b-9da1dd15c2cd
+		sourceLineageTag: customer_key
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: 3eb0adfa-5a69-4aa0-bdd0-d8cfdcc28fc8
+		sourceLineageTag: customer_id
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: 206889ff-337e-4279-93d0-a222b10fd9d5
+		sourceLineageTag: region
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column tariff_zone_id
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: b4d8eafd-f8a5-4a26-988c-4b92b1c6ec9e
+		sourceLineageTag: tariff_zone_id
+		summarizeBy: none
+		sourceColumn: tariff_zone_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimCustomer = entity
+		mode: directLake
+		source
+			entityName: DimCustomer
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

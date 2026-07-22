@@ -1,0 +1,74 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "7583c6e4bc50c5607680",
+  "position": {
+    "x": 440.59143334488238,
+    "y": 99.668483599297872,
+    "z": 2,
+    "height": 185.99893721518171,
+    "width": 245.36030015619716,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "smartmetering_measures"
+                    }
+                  },
+                  "Property": "reading_count"
+                }
+              },
+              "queryRef": "smartmetering_measures.reading_count",
+              "nativeQueryRef": "reading_count"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "smartmetering_measures"
+                  }
+                },
+                "Property": "reading_count"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "c4397c797c9d8587e66a",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "smartmetering_measures"
+              }
+            },
+            "Property": "reading_count"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

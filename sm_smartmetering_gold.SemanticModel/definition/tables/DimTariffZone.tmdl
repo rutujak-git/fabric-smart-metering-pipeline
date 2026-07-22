@@ -1,0 +1,68 @@
+table DimTariffZone
+	lineageTag: 4f16d384-31b9-4c3c-9b2c-b0bec46bd1a8
+	sourceLineageTag: [gold].[DimTariffZone]
+
+	column tariff_zone_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 1387212b-cad5-4bcf-b08f-4d24b3450124
+		sourceLineageTag: tariff_zone_key
+		summarizeBy: none
+		sourceColumn: tariff_zone_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column tariff_zone_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 4ec59b87-399e-494f-a94d-93f852fb63c6
+		sourceLineageTag: tariff_zone_id
+		summarizeBy: none
+		sourceColumn: tariff_zone_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column zone_name
+		dataType: string
+		sourceProviderType: varchar(100)
+		lineageTag: 984ce9a9-cd5c-4c0e-8bb5-13f5f92c8831
+		sourceLineageTag: zone_name
+		summarizeBy: none
+		sourceColumn: zone_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column rate_per_kwh
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: decimal(10, 4)
+		lineageTag: 32fd2ae0-8284-47cd-863b-a9d8e4ff0406
+		sourceLineageTag: rate_per_kwh
+		summarizeBy: none
+		sourceColumn: rate_per_kwh
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column rate_status
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: c6479054-e0f4-4754-9ed2-515029d95bea
+		sourceLineageTag: rate_status
+		summarizeBy: none
+		sourceColumn: rate_status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimTariffZone = entity
+		mode: directLake
+		source
+			entityName: DimTariffZone
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,121 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "e3a320d70d4e6714dc01",
+  "position": {
+    "x": 664.847264939373,
+    "y": 273.06226952867104,
+    "z": 5,
+    "height": 447.18893415564963,
+    "width": 614.71989178918216,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimCustomer"
+                    }
+                  },
+                  "Property": "region"
+                }
+              },
+              "queryRef": "DimCustomer.region",
+              "nativeQueryRef": "region"
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "smartmetering_measures"
+                    }
+                  },
+                  "Property": "avg_temperature"
+                }
+              },
+              "queryRef": "smartmetering_measures.avg_temperature",
+              "nativeQueryRef": "avg_temperature",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "smartmetering_measures"
+                    }
+                  },
+                  "Property": "total_consumption_kwh"
+                }
+              },
+              "queryRef": "smartmetering_measures.total_consumption_kwh",
+              "nativeQueryRef": "total_consumption_kwh"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "066e2a7a655be026e406",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "smartmetering_measures"
+              }
+            },
+            "Property": "avg_temperature"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "0a160ad0503c3b1b0ca9",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "smartmetering_measures"
+              }
+            },
+            "Property": "total_consumption_kwh"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "49a25d1a2a5394adc206",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimCustomer"
+              }
+            },
+            "Property": "region"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

@@ -1,0 +1,69 @@
+table DimWeather
+	lineageTag: 97149e7b-ebdc-41e4-ab0b-84a237d019e9
+	sourceLineageTag: [gold].[DimWeather]
+
+	column weather_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 1e15df1f-bef3-4ff6-a91e-255ea6db653d
+		sourceLineageTag: weather_key
+		summarizeBy: none
+		sourceColumn: weather_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: 7555568b-0d7f-4936-bfb6-6797dbf6e440
+		sourceLineageTag: region
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column date
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 6c3f25d7-5c9f-40aa-a1cc-6dde49cc0946
+		sourceLineageTag: date
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column temperature_2m
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: decimal(5, 2)
+		lineageTag: 90be0945-c84d-440e-bc1d-456ce6f3d86a
+		sourceLineageTag: temperature_2m
+		summarizeBy: none
+		sourceColumn: temperature_2m
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column weather_code
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: bc3cbb10-744d-499f-9666-a7eaef432dbf
+		sourceLineageTag: weather_code
+		summarizeBy: none
+		sourceColumn: weather_code
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimWeather = entity
+		mode: directLake
+		source
+			entityName: DimWeather
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Dataflow",
+    "displayName": "df_silver_cleaning"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a66779f9-17f5-bad1-40dc-0848cb23a9cb"
+  }
+}

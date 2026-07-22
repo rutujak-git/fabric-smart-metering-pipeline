@@ -1,0 +1,78 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {
+    "allowModernEvaluationEngine": true
+  },
+  "name": "df_silver_cleaning",
+  "queryGroups": [],
+  "documentLocale": "en-US",
+  "queriesMetadata": {
+    "Customers": {
+      "queryId": "1dc5d7a1-4896-48c2-b491-e3e61d2d1217",
+      "queryName": "Customers",
+      "loadEnabled": false
+    },
+    "Meters": {
+      "queryId": "9bdff09b-4fb0-4090-bbe0-5301e7532c8b",
+      "queryName": "Meters",
+      "loadEnabled": false
+    },
+    "Customers_DataDestination": {
+      "queryId": "61cf7588-2379-40ec-b2f1-dc70526dba54",
+      "queryName": "Customers_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "Meters_DataDestination": {
+      "queryId": "8554b132-8b0b-422f-b16a-101d9153c549",
+      "queryName": "Meters_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "tariff-zones": {
+      "queryId": "73e83fd7-7649-4303-9a01-d743837d8ccd",
+      "queryName": "tariff-zones",
+      "loadEnabled": false
+    },
+    "tariff-zones_DataDestination": {
+      "queryId": "7dcb2912-52ca-4de6-a70b-4b7e30319e3f",
+      "queryName": "tariff-zones_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "meter-readings": {
+      "queryId": "c4635ce2-d13c-47ff-922e-c4ce4f2f1aa4",
+      "queryName": "meter-readings",
+      "loadEnabled": false
+    },
+    "meter-readings_DataDestination": {
+      "queryId": "383a11e8-312d-4fe9-8742-b24e19923fad",
+      "queryName": "meter-readings_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "weather": {
+      "queryId": "6c53958b-1e98-48ff-a65c-511bfaaa1fef",
+      "queryName": "weather",
+      "loadEnabled": false
+    },
+    "weather_DataDestination": {
+      "queryId": "9e40c59e-ebb2-44d9-b32e-951b10f9fe5b",
+      "queryName": "weather_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "c50a881a-f4eb-402e-a192-efe134697892;mirror_smartmetering_sql;MountedRelationalDatabase",
+      "kind": "OneLakeSql",
+      "connectionId": "{\"ClusterId\":\"53fefe22-3680-43af-93cc-5cf05bd973f4\",\"DatasourceId\":\"51462a9a-0c8f-4e84-9803-9010e113e2bb\"}"
+    },
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"53fefe22-3680-43af-93cc-5cf05bd973f4\",\"DatasourceId\":\"40b603e0-25c5-43fd-ac5b-cbaea3977698\"}"
+    }
+  ]
+}
